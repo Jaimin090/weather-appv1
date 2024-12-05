@@ -4,7 +4,7 @@ import { useState } from 'react';
 import WeatherCard from '../app/components/weather-card';
 // import Forecast from '../components/Forecast';
 // import AQICard from '../components/AQICard';
-import fetchWeather from '../utils/fetch-weather';
+import fetchWeather from '../app/utils/fetch-weather';
 // import fetchForecast from '../utils/fetchForecast';
 // import fetchWeatherByCoords from '../utils/fetchWeatherByCoords';
 // import fetchForecastByCoords from '../utils/fetchForecastByCoords';

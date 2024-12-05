@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import WeatherCard from '../app/components/weather-card';
-// import Forecast from '../components/Forecast';
+import Forecast from '../app/components/forecast-card';
 // import AQICard from '../components/AQICard';
 import fetchWeather from '../app/utils/fetch-weather';
-// import fetchForecast from '../utils/fetchForecast';
+import fetchForecast from '../app/utils/fetch-forecast';
 // import fetchWeatherByCoords from '../utils/fetchWeatherByCoords';
 // import fetchForecastByCoords from '../utils/fetchForecastByCoords';
 // import fetchAQI from '../utils/fetchAQI';
@@ -13,7 +13,7 @@ import fetchWeather from '../app/utils/fetch-weather';
 const Home = () => {
     const [city, setCity] = useState('');
     const [weatherData, setWeatherData] = useState(null);
-    // const [forecastData, setForecastData] = useState(null);
+    const [forecastData, setForecastData] = useState(null);
     // const [aqiData, setAqiData] = useState(null);
     const [error, setError] = useState('');
 
@@ -42,12 +42,12 @@ const Home = () => {
         setError('');
         try {
             const weather = await fetchWeather(city);
-            // const forecast = await fetchForecast(city);
+            const forecast = await fetchForecast(city);
             // const { coord } = weather;
             // const aqi = await fetchAQI(coord.lat, coord.lon);
 
             setWeatherData(weather);
-            // setForecastData(forecast);
+            setForecastData(forecast);
             // setAqiData(aqi);
         } catch (err) {
             setError('City not found. Please try again.');
@@ -81,7 +81,7 @@ const Home = () => {
             {error && <p className="text-red-500 text-lg mb-4">{error}</p>}
             <WeatherCard weatherData={weatherData} />
             {/* {aqiData && <AQICard aqiData={aqiData} />} */}
-            {/* <Forecast forecastData={forecastData} /> */}
+            <Forecast forecastData={forecastData} />
         </div>
     );
 };

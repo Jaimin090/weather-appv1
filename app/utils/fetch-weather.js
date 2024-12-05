@@ -1,5 +1,5 @@
 const fetchWeather = async (city) => {
-    const API_KEY = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
+    const API_KEY = "d37b64427aebac3ff30e3c6d911eac7d";        // for some reason the API key is not working when placed env.local
     const BASE_URL = 'https://api.openweathermap.org/data/2.5/weather';
 
     try {

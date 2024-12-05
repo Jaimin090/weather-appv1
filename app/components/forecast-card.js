@@ -10,7 +10,7 @@ const Forecast = ({ forecastData }) => {
                 {forecastData.list.map((item, index) => (
                     <div
                         key={index}
-                        className="bg-opacity-85 bg-white text-black rounded-md p-4 shadow-md min-w-[150px] text-center"
+                        className=" bg-gray-400 text-black rounded-md p-4 shadow-md min-w-[150px] text-center"
                     >
                         <p className="text-sm font-semibold">{new Date(item.dt_txt).toLocaleDateString()}</p>
                         <img

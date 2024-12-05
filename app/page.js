@@ -6,8 +6,8 @@ import Forecast from '../app/components/forecast-card';
 // import AQICard from '../components/AQICard';
 import fetchWeather from '../app/utils/fetch-weather';
 import fetchForecast from '../app/utils/fetch-forecast';
-// import fetchWeatherByCoords from '../utils/fetchWeatherByCoords';
-// import fetchForecastByCoords from '../utils/fetchForecastByCoords';
+import fetchWeatherByCoords from '../app/utils/fetch-weathercoords';
+import fetchForecastByCoords from '../app/utils/fetch-forecastcoords';
 // import fetchAQI from '../utils/fetchAQI';
 
 const Home = () => {
@@ -17,26 +17,26 @@ const Home = () => {
     // const [aqiData, setAqiData] = useState(null);
     const [error, setError] = useState('');
 
-    // const handleGeolocation = async () => {
-    //     setError('');
-    //     try {
-    //         navigator.geolocation.getCurrentPosition(async (position) => {
-    //             const { latitude, longitude } = position.coords;
+    const handleGeolocation = async () => {
+        setError('');
+        try {
+            navigator.geolocation.getCurrentPosition(async (position) => {
+                const { latitude, longitude } = position.coords;
 
-    //             const weather = await fetchWeatherByCoords(latitude, longitude);
-    //             const forecast = await fetchForecastByCoords(latitude, longitude);
-    //             // const aqi = await fetchAQI(latitude, longitude);
+                const weather = await fetchWeatherByCoords(latitude, longitude);
+                const forecast = await fetchForecastByCoords(latitude, longitude);
+                // const aqi = await fetchAQI(latitude, longitude);
 
-    //             setWeatherData(weather);
-    //             setForecastData(forecast);
-    //             // setAqiData(aqi);
-    //         }, () => {
-    //             setError('Unable to retrieve location.');
-    //         });
-    //     } catch (err) {
-    //         setError('Error fetching data for your location.');
-    //     }
-    // };
+                setWeatherData(weather);
+                setForecastData(forecast);
+                // setAqiData(aqi);
+            }, () => {
+                setError('Unable to retrieve location.');
+            });
+        } catch (err) {
+            setError('Error fetching data for your location.');
+        }
+    };
 
     const handleSearch = async () => {
         setError('');
@@ -71,12 +71,12 @@ const Home = () => {
                 >
                     Search
                 </button>
-                {/* <button
+                <button
                     onClick={handleGeolocation}
                     className="px-6 py-2 bg-slate-600 rounded-lg shadow-md hover:bg-slate-700"
                 >
                     Use My Location
-                </button> */}
+                </button>
             </div>
             {error && <p className="text-red-500 text-lg mb-4">{error}</p>}
             <WeatherCard weatherData={weatherData} />

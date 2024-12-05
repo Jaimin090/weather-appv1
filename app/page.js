@@ -17,6 +17,25 @@ const Home = () => {
     // const [aqiData, setAqiData] = useState(null);
     const [error, setError] = useState('');
 
+    const backgroundImages = {
+      Clear: '/images/clear.jpg',
+      Clouds: '/images/cloud.jpg',
+      Rain: '/images/rainy.jpg',
+      Snow: '/images/snowy.jpg',
+      Storm: '/images/storm.jpg',
+      Drizzle: '/images/drizzle.jpg',
+      Mist: '/images/mist.jpg',
+      Haze: '/images/haze.jpg',
+      Smoke: '/images/smoke.jpg',
+      Default: '/images/default.jpg',
+  };
+
+  // Determine background image
+  const backgroundImage =
+      weatherData && weatherData.weather[0].main
+          ? backgroundImages[weatherData.weather[0].main] || backgroundImages.Default
+          : backgroundImages.Default;
+
     const handleGeolocation = async () => {
         setError('');
         try {
@@ -55,7 +74,10 @@ const Home = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-white flex flex-col items-center justify-center px-4">
+      <div
+      className="min-h-screen bg-cover bg-center text-white flex flex-col items-center justify-center px-4"
+      style={{ backgroundImage: `url(${backgroundImage})` }}
+  >
             <h1 className="text-5xl font-bold mb-6 text-center">Weather App</h1>
             <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 mb-6">
                 <input

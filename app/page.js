@@ -8,13 +8,13 @@ import fetchWeather from '../app/utils/fetch-weather';
 import fetchForecast from '../app/utils/fetch-forecast';
 import fetchWeatherByCoords from '../app/utils/fetch-weathercoords';
 import fetchForecastByCoords from '../app/utils/fetch-forecastcoords';
-// import fetchAQI from '../utils/fetchAQI';
+import fetchAQI from '../app/utils/fetch-aqi';
 
 const Home = () => {
     const [city, setCity] = useState('');
     const [weatherData, setWeatherData] = useState(null);
     const [forecastData, setForecastData] = useState(null);
-    // const [aqiData, setAqiData] = useState(null);
+    const [aqiData, setAqiData] = useState(null);
     const [error, setError] = useState('');
 
     const backgroundImages = {
@@ -44,11 +44,11 @@ const Home = () => {
 
                 const weather = await fetchWeatherByCoords(latitude, longitude);
                 const forecast = await fetchForecastByCoords(latitude, longitude);
-                // const aqi = await fetchAQI(latitude, longitude);
+                const aqi = await fetchAQI(latitude, longitude);
 
                 setWeatherData(weather);
                 setForecastData(forecast);
-                // setAqiData(aqi);
+                setAqiData(aqi);
             }, () => {
                 setError('Unable to retrieve location.');
             });
@@ -62,23 +62,21 @@ const Home = () => {
         try {
             const weather = await fetchWeather(city);
             const forecast = await fetchForecast(city);
-            // const { coord } = weather;
-            // const aqi = await fetchAQI(coord.lat, coord.lon);
+            const { coord } = weather;
+            const aqi = await fetchAQI(coord.lat, coord.lon);
 
             setWeatherData(weather);
             setForecastData(forecast);
-            // setAqiData(aqi);
+            setAqiData(aqi);
         } catch (err) {
             setError('City not found. Please try again.');
         }
     };
 
     return (
-      <div
-      className="min-h-screen bg-cover bg-center text-white flex flex-col items-center justify-center px-4"
-      style={{ backgroundImage: `url(${backgroundImage})` }}
-  >
-            <h1 className="text-5xl font-bold mb-6 text-center">Weather App</h1>
+        <div className="min-h-screen bg-cover bg-center text-white flex flex-col items-center justify-center px-4"
+          style={{ backgroundImage: `url(${backgroundImage})` }}>
+          <h1 className="text-5xl font-bold mb-6 text-center">Weather App</h1>
             <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 mb-6">
                 <input
                     type="text"
@@ -101,7 +99,7 @@ const Home = () => {
                 </button>
             </div>
             {error && <p className="text-red-500 text-lg mb-4">{error}</p>}
-            <WeatherCard weatherData={weatherData} />
+            <WeatherCard weatherData={weatherData} aqiData={aqiData} />
             {/* {aqiData && <AQICard aqiData={aqiData} />} */}
             <Forecast forecastData={forecastData} />
         </div>

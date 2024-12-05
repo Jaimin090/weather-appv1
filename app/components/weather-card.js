@@ -1,9 +1,11 @@
 import React from 'react';
 
-const WeatherCard = ({ weatherData }) => {
-    if (!weatherData) return null;
+const WeatherCard = ({ weatherData, aqiData }) => {
+    if (!weatherData || !aqiData) return null;
 
     const { name, sys, main, weather, wind } = weatherData;
+    const aqiLevels = ['Good', 'Fair', 'Moderate', 'Poor', 'Very Poor'];
+    const { main: aqiMain, components } = aqiData.list[0];
 
     return (
         <div className="bg-gradient-to-br from-blue-400 to-indigo-700 text-white rounded-lg shadow-lg p-6 w-full max-w-lg">
@@ -24,6 +26,18 @@ const WeatherCard = ({ weatherData }) => {
                 <p>Humidity: <span className="font-semibold">{main.humidity}%</span></p>
                 <p>Wind Speed: <span className="font-semibold">{wind.speed} m/s</span></p>
                 <p>Pressure: <span className="font-semibold">{main.pressure} hPa</span></p>
+            </div>
+            
+            {/* AQI Information */}
+            <div className="mt-6 p-4 bg-stone-300 text-black rounded-md shadow-md">
+                <h3 className="text-2xl font-bold mb-2">Air Quality Index (AQI)</h3>
+                <p className="text-lg">AQI Level: {aqiLevels[aqiMain.aqi - 1]}</p>
+                <div className="grid grid-cols-2 gap-4 mt-4 text-sm">
+                    <p>PM2.5: <span className="font-medium">{components.pm2_5} µg/m³</span></p>
+                    <p>PM10: <span className="font-medium">{components.pm10} µg/m³</span></p>
+                    <p>Ozone (O₃): <span className="font-medium">{components.o3} µg/m³</span></p>
+                    <p>Carbon Monoxide (CO): <span className="font-medium">{components.co} µg/m³</span></p>
+                </div>
             </div>
         </div>
     );

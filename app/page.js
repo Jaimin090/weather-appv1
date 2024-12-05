@@ -71,12 +71,12 @@ const Home = () => {
                 >
                     Search
                 </button>
-                <button
+                {/* <button
                     onClick={handleGeolocation}
                     className="px-6 py-2 bg-slate-600 rounded-lg shadow-md hover:bg-slate-700"
                 >
                     Use My Location
-                </button>
+                </button> */}
             </div>
             {error && <p className="text-red-500 text-lg mb-4">{error}</p>}
             <WeatherCard weatherData={weatherData} />

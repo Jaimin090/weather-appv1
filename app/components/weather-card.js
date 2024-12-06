@@ -8,7 +8,7 @@ const WeatherCard = ({ weatherData, aqiData }) => {
     const { main: aqiMain, components } = aqiData.list[0];
 
     return (
-        <div className="bg-gradient-to-br from-blue-400 to-indigo-700 text-white rounded-lg shadow-lg p-6 w-full max-w-lg">
+        <div className="bg-gradient-to-br from-indigo-600 to-blue-400 text-white rounded-lg shadow-lg p-6 w-full max-w-lg">
             <h2 className="text-3xl font-bold">
                 {name}, {sys.country}
             </h2>
@@ -29,10 +29,14 @@ const WeatherCard = ({ weatherData, aqiData }) => {
             </div>
             
             {/* AQI Information */}
-            <div className="mt-6 p-4 bg-stone-300 text-black rounded-md shadow-md">
+            <div className="mt-6 p-4 bg-stone-200 text-black rounded-md shadow-md">
                 <h3 className="text-2xl font-bold mb-2">Air Quality Index (AQI)</h3>
-                <p className="text-lg">AQI Level: {aqiLevels[aqiMain.aqi - 1]}</p>
-                <div className="grid grid-cols-2 gap-4 mt-4 text-sm">
+                <div className="flex justify-between items-center mb-4">
+                    <p className="text-xl">AQI Level: <span className={`text-lg font-semibold ${aqiMain.aqi <= 3 ? 'text-green-500' : aqiMain.aqi === 4 ? 'text-yellow-500' : 'text-red-500'}`}>
+                    {aqiLevels[aqiMain.aqi - 1]}</span></p>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4 text-sm">
                     <p>PM2.5: <span className="font-medium">{components.pm2_5} µg/m³</span></p>
                     <p>PM10: <span className="font-medium">{components.pm10} µg/m³</span></p>
                     <p>Ozone (O₃): <span className="font-medium">{components.o3} µg/m³</span></p>

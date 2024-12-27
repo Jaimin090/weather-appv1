@@ -1,1 +1,1 @@
-The project was made in a different github repo in Typescript, but due to deployment errors and other many unfamiliar errors we pushed the project in this repo making sure each part of the project is developed properly without any errors. Thats the reason the page.js had 70% commented code in the first few commits as we were pushing 1 feature at a time and removing the unwanted code and taking care of errors each commit.
+The Weather APp v1.1

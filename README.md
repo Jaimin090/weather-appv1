@@ -1,1 +1,1 @@
-The Weather APp v1.1
+The Weather App v1.1
